@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>offgrid.ec - Checkout</title>
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 400: '#fb923c', 500: '#ff6600', 600: '#ea580c' },
+                        darkbg: '#0A0F1C',
+                        darkcard: '#111827'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Controlado por Tailwind ahora */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0F1C; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-500 selection:text-white bg-gray-50 text-gray-900 dark:bg-darkbg dark:text-white transition-colors duration-300">
+
+    <!-- HEADER SIMPLIFICADO PARA CHECKOUT (Evita distracciones y fugas de clientes) -->
+    <header class="sticky top-0 z-50 border-b border-white/5 bg-darkbg/90 backdrop-blur-lg py-4">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8 flex justify-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500 shadow-lg shadow-primary-500/20">
+                    <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                </div>
+                <span class="font-display text-2xl font-bold tracking-tight text-white group-hover:text-primary-500 transition-colors">Offgrid Checkout</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="py-12 lg:py-16">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <a href="tienda.html" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-primary-500 transition-colors mb-8">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Volver a la tienda
+            </a>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- COLUMNA IZQUIERDA: FORMULARIO -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="bg-darkcard rounded-3xl p-8 border border-white/5 shadow-xl">
+                        <h2 class="font-display text-2xl font-bold text-white mb-6">Información de Envío</h2>
+                        
+                        <form id="form-checkout" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Nombre Completo</label>
+                                    <input type="text" id="chk-nombre" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors" placeholder="Ej. Juan Pérez">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Teléfono</label>
+                                    <input type="tel" id="chk-telefono" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors" placeholder="099 123 4567">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">Correo Electrónico</label>
+                                <input type="email" id="chk-email" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors" placeholder="juan@ejemplo.com">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">Dirección de Entrega</label>
+                                <input type="text" id="chk-direccion" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors" placeholder="Calle Principal y Secundaria, Casa #123">
+                            </div>
+
+                            <div class="pt-6 mt-6 border-t border-white/5">
+                                <h3 class="font-bold text-white mb-4">Método de Pago</h3>
+                                <div class="p-4 rounded-xl border border-primary-500 bg-primary-500/10 flex items-center justify-between cursor-pointer">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-4 w-4 rounded-full border-4 border-primary-500 bg-white"></div>
+                                        <span class="font-semibold text-primary-500">Pagar al Recibir (Efectivo/Transferencia)</span>
+                                    </div>
+                                    <svg class="h-6 w-6 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-procesar-pago" class="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-xl shadow-xl shadow-primary-500/20 transition-colors flex items-center justify-center gap-2">
+                                Confirmar Pedido
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: RESUMEN DE COMPRA -->
+                <div class="lg:col-span-5">
+                    <div class="bg-darkcard rounded-3xl p-8 border border-white/5 shadow-xl sticky top-28">
+                        <h2 class="font-display text-xl font-bold text-white mb-6">Resumen del Pedido</h2>
+                        
+                        <div id="checkout-items" class="space-y-4 max-h-[40vh] overflow-y-auto pr-2 mb-6">
+                            <!-- Items generados por JS -->
+                            <div class="text-center py-4 text-gray-500">Cargando bolsa...</div>
+                        </div>
+
+                        <div class="border-t border-white/10 pt-4 space-y-3">
+                            <div class="flex justify-between text-gray-400">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>Envío</span>
+                                <span class="text-green-500 font-semibold">Gratis</span>
+                            </div>
+                            <div class="flex justify-between text-white font-display text-2xl font-bold pt-4 border-t border-white/5">
+                                <span>Total</span>
+                                <span id="checkout-total" class="text-primary-500">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- PANTALLA DE ÉXITO (Oculta por defecto) -->
+    <div id="pantalla-exito" class="fixed inset-0 z-[100] bg-darkbg hidden items-center justify-center">
+        <div class="text-center max-w-md p-8">
+            <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-green-500/20 text-green-500 mb-6">
+                <svg class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h1 class="font-display text-4xl font-bold text-white mb-4">¡Pedido Confirmado!</h1>
+            <p class="text-gray-400 mb-8">Tu número de orden es: <span id="orden-id" class="text-primary-500 font-bold">#---</span>. Te hemos enviado un correo de confirmación con los detalles del envío.</p>
+            <a href="index.html" class="inline-flex items-center justify-center w-full rounded-xl bg-primary-500 px-8 py-4 font-bold text-white hover:bg-primary-600 transition-colors">
+                Seguir Comprando
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER COMPLETO UNIFICADO -->
+    <footer class="bg-darkbg pt-16 pb-8 border-t border-white/10 mt-20">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16 border-b border-white/5 pb-10">
+                <div>
+                    <h3 class="font-bold text-white text-lg">Join the Offgrid Club</h3>
+                    <p class="text-gray-400 text-sm mt-1">Get 15% off your first order, plus early access to new drops.</p>
+                </div>
+                <form class="flex w-full md:w-auto gap-2">
+                    <input type="email" placeholder="Enter your email" required class="w-full md:w-64 rounded-lg bg-darkcard border border-white/10 px-4 py-2.5 text-white placeholder-gray-500 outline-none focus:border-primary-500">
+                    <button type="button" class="rounded-lg bg-primary-500 px-6 py-2.5 font-bold text-white hover:bg-primary-600 transition-colors">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="index.html" class="flex items-center gap-2 mb-4">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
+                        <span class="font-display text-xl font-bold text-white">Offgrid</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Premium footwear for every step of your journey. From athletic performance to everyday comfort.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Shop</h4>
+                    <ul class="space-y-3">
+                        <li><a href="tienda.html?categoria=running" class="text-sm text-gray-400 hover:text-white transition-colors">Running</a></li>
+                        <li><a href="tienda.html?categoria=sneakers" class="text-sm text-gray-400 hover:text-white transition-colors">Sneakers</a></li>
+                        <li><a href="tienda.html?categoria=basketball" class="text-sm text-gray-400 hover:text-white transition-colors">Basketball</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Help</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">About</h4>
+                    <ul class="space-y-3">
+                        <li><a href="nosotros.html" class="text-sm text-gray-400 hover:text-white transition-colors">Our Story</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-8 text-sm text-gray-500">
+                <p>&copy; 2026 offgrid.ec. All rights reserved.</p>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <span class="bg-darkcard px-2 py-1 rounded text-xs text-white/50 border border-white/10">VISA</span>
+                    <span class="bg-darkcard px-2 py-1 rounded text-xs text-white/50 border border-white/10">MC</span>
+                    <span class="bg-darkcard px-2 py-1 rounded text-xs text-white/50 border border-white/10">AMEX</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT ESPECÍFICO DE CHECKOUT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const contenedorItems = document.getElementById('checkout-items');
+            const subtotalEl = document.getElementById('checkout-subtotal');
+            const totalEl = document.getElementById('checkout-total');
+            const form = document.getElementById('form-checkout');
+            const btnProcesar = document.getElementById('btn-procesar-pago');
+            const pantallaExito = document.getElementById('pantalla-exito');
+
+            // 1. DIBUJAR LOS ITEMS DEL CARRITO
+            let total = 0;
+            if (carrito.length === 0) {
+                contenedorItems.innerHTML = '<p class="text-center text-gray-500">Tu bolsa está vacía.</p>';
+                btnProcesar.disabled = true;
+                btnProcesar.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                contenedorItems.innerHTML = '';
+                carrito.forEach(item => {
+                    const subtotalItem = item.price * item.cantidad;
+                    total += subtotalItem;
+                    // Imagen corregida con object-cover y sin fondo forzado a gris
+                    contenedorItems.innerHTML += `
+                        <div class="flex items-center gap-4 bg-[#0A0F1C] p-3 rounded-2xl border border-white/5">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden bg-darkcard">
+                                <img src="${item.image}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-sm text-white line-clamp-1">${item.name}</h4>
+                                <p class="text-xs text-gray-500 mt-1">Cant: ${item.cantidad}</p>
+                            </div>
+                            <div class="font-bold text-white">$${subtotalItem.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+                subtotalEl.textContent = `$${total.toFixed(2)}`;
+                totalEl.textContent = `$${total.toFixed(2)}`;
+            }
+
+            // 2. ENVIAR DATOS A FLASK (API)
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                if (carrito.length === 0) return;
+
+                btnProcesar.innerHTML = '<svg class="animate-spin h-5 w-5 text-white mr-2" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> Procesando...';
+                btnProcesar.disabled = true;
+
+                const payload = {
+                    cliente: {
+                        nombre: document.getElementById('chk-nombre').value,
+                        email: document.getElementById('chk-email').value,
+                        telefono: document.getElementById('chk-telefono').value,
+                        direccion: document.getElementById('chk-direccion').value
+                    },
+                    carrito: carrito.map(item => ({
+                        inventory_id: item.id, 
+                        cantidad: item.cantidad,
+                        precio: item.price
+                    }))
+                };
+
+                try {
+                    const respuesta = await fetch('http://127.0.0.1:5000/api/checkout', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await respuesta.json();
+
+                    if (respuesta.ok) {
+                        // 1. Limpiar el carrito localmente
+                        localStorage.removeItem('carrito');
+                        document.getElementById('orden-id').textContent = `#${data.orden_id}`;
+                        
+                        // 2. CONSTRUIR EL MENSAJE PARA WHATSAPP
+                        // Cambia este número 
+                        const numeroWhatsApp = "593998725131"; 
+                        
+                        let mensaje = `¡Hola Offgrid! ⚡\nQuiero confirmar mi pedido (*Orden #${data.orden_id}*)\n\n`;
+                        
+                        mensaje += `*Datos de Envío:*\n`;
+                        mensaje += `👤 Nombre: ${payload.cliente.nombre}\n`;
+                        mensaje += `📞 Teléfono: ${payload.cliente.telefono}\n`;
+                        mensaje += `📍 Dirección: ${payload.cliente.direccion}\n\n`;
+                        
+                        mensaje += `*Detalle de la Compra:*\n`;
+                        carrito.forEach(item => {
+                            mensaje += `▪️ ${item.cantidad}x ${item.name} - $${(item.price * item.cantidad).toFixed(2)}\n`;
+                            // Agregamos la URL de la imagen para que puedas verla en el chat
+                            mensaje += `   🖼️ Ver foto: ${item.image}\n\n`; 
+                        });
+                        
+                        mensaje += `*Total a Pagar:* $${total.toFixed(2)}\n`;
+                        mensaje += `Método: Pagar al Recibir (Efectivo/Transferencia)`;
+
+                        // 3. Crear el enlace de WhatsApp codificado
+                        const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+
+                        // 4. Mostrar tu pantalla de éxito y abrir WhatsApp
+                        pantallaExito.classList.remove('hidden');
+                        pantallaExito.classList.add('flex');
+                        
+                        // Redirigir a WhatsApp
+                        window.location.href = urlWhatsApp;
+
+                    } else {
+                        alert(`Error en la compra: ${data.error}`);
+                        btnProcesar.innerHTML = 'Confirmar Pedido';
+                        btnProcesar.disabled = false;
+                    }
+                } catch (error) {
+                    alert('Error de conexión con el servidor. Verifica que Flask esté corriendo.');
+                    btnProcesar.innerHTML = 'Confirmar Pedido';
+                    btnProcesar.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

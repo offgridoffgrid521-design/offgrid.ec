@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>offgrid.ec - Panel de Administrador</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: { 400: '#fb923c', 500: '#ff6600', 600: '#ea580c' }, darkbg: '#0A0F1C', darkcard: '#111827' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style> 
+        body { background-color: #0A0F1C; color: #fff; } 
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0F1C; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-500 selection:text-white h-screen flex overflow-hidden">
+
+    <!-- ========================================== -->
+    <!-- PANTALLA DE LOGIN (Escudo de Seguridad) -->
+    <!-- ========================================== -->
+    <div id="login-view" class="fixed inset-0 z-[100] bg-darkbg flex items-center justify-center">
+        <div class="w-full max-w-md bg-darkcard p-8 rounded-3xl border border-white/10 shadow-2xl">
+            <div class="flex justify-center mb-6">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500 shadow-lg shadow-primary-500/20">
+                    <svg class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                </div>
+            </div>
+            <h2 class="font-display text-2xl font-bold text-white text-center mb-2">Panel de Control</h2>
+            <p class="text-gray-400 text-sm text-center mb-8">Ingresa tus credenciales de administrador</p>
+            
+            <form id="admin-login-form" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Correo Electrónico</label>
+                    <input type="email" id="login-email" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white focus:border-primary-500 outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Contraseña</label>
+                    <input type="password" id="login-password" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white focus:border-primary-500 outline-none transition-colors">
+                </div>
+                <button type="submit" id="btn-login" class="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 rounded-xl shadow-lg transition-colors mt-4">
+                    Ingresar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- DASHBOARD PRINCIPAL (Oculto sin sesión) -->
+    <!-- ========================================== -->
+    <div id="dashboard-view" class="hidden w-full h-full flex">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-darkcard border-r border-white/5 flex flex-col">
+            <div class="h-20 flex items-center px-6 border-b border-white/5">
+                <span class="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500">
+                        <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    offgrid.ec
+                </span>
+            </div>
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <button onclick="cambiarVista('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl bg-primary-500/10 text-primary-500 transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg> Dashboard
+                </button>
+                <button onclick="cambiarVista('productos')" id="nav-productos" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-400 hover:text-white transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg> Productos
+                </button>
+                <button onclick="cambiarVista('categorias')" id="nav-categorias" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-400 hover:text-white transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg> Categorías
+                </button>
+            </nav>
+            <div class="p-4 border-t border-white/5">
+                <button onclick="cerrarSesion()" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-red-400 hover:bg-red-500/10 transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg> Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-darkbg">
+            <header class="h-20 flex items-center justify-between px-8 border-b border-white/5 bg-darkcard">
+                <h1 id="header-titulo" class="font-display text-2xl font-bold text-white">Panel Principal</h1>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-400">Hola, <span id="admin-name" class="font-bold text-white">Admin</span></span>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto p-8">
+                
+                <!-- VISTA DASHBOARD -->
+                <div id="vista-dashboard">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-display text-xl font-bold text-white">Resumen de Actividad</h2>
+                        <select id="filtro-tiempo" onchange="cargarDashboard(this.value)" class="bg-darkcard border border-gray-700 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-primary-500 cursor-pointer">
+                            <option value="hoy">Hoy</option>
+                            <option value="semana">Últimos 7 días</option>
+                            <option value="mes" selected>Este Mes</option>
+                            <option value="todo">Histórico Completo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-darkcard rounded-2xl p-6 border border-white/5 shadow-lg">
+                            <p class="text-gray-400 text-sm font-medium mb-1">Ingresos Totales (Pendientes/Pagados)</p>
+                            <h3 id="dash-ventas" class="text-3xl font-display font-bold text-white">$0.00</h3>
+                        </div>
+                        <div class="bg-darkcard rounded-2xl p-6 border border-white/5 shadow-lg">
+                            <p class="text-gray-400 text-sm font-medium mb-1">Pedidos Registrados</p>
+                            <h3 id="dash-pedidos" class="text-3xl font-display font-bold text-white">0</h3>
+                        </div>
+                        <div class="bg-darkcard rounded-2xl p-6 border border-white/5 shadow-lg">
+                            <p class="text-gray-400 text-sm font-medium mb-1">Visitas Estimadas</p>
+                            <h3 id="dash-visitas" class="text-3xl font-display font-bold text-primary-500">--</h3>
+                            <p class="text-xs text-gray-500 mt-1">Conecta Google Analytics</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-white mb-4">Últimos Pedidos</h3>
+                    <div class="bg-darkcard rounded-2xl border border-white/5 overflow-hidden">
+                        <table class="w-full text-left text-sm text-gray-400">
+                            <thead class="bg-white/5 text-gray-300 uppercase font-semibold">
+                                <tr>
+                                    <th class="px-6 py-4">Orden</th>
+                                    <th class="px-6 py-4">Cliente</th>
+                                    <th class="px-6 py-4">Fecha</th>
+                                    <th class="px-6 py-4">Total</th>
+                                    <th class="px-6 py-4 text-right">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-dash-pedidos" class="divide-y divide-white/5">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VISTA PRODUCTOS -->
+                <div id="vista-productos" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <input type="text" placeholder="Buscar producto..." class="bg-darkcard border border-gray-700 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-primary-500 w-64">
+                        <button onclick="abrirModalProducto()" class="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2 text-sm transition-colors">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Nuevo Producto
+                        </button>
+                    </div>
+                    <div class="bg-darkcard rounded-2xl border border-white/5 overflow-hidden">
+                        <table class="w-full text-left text-sm text-gray-400">
+                            <thead class="bg-white/5 text-gray-300 uppercase font-semibold">
+                                <tr>
+                                    <th class="px-6 py-4">Producto</th>
+                                    <th class="px-6 py-4">Categoría</th>
+                                    <th class="px-6 py-4">Precio</th>
+                                    <th class="px-6 py-4">Estado</th>
+                                    <th class="px-6 py-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-productos" class="divide-y divide-white/5">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VISTA CATEGORÍAS -->
+                <div id="vista-categorias" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <input type="text" placeholder="Buscar categoría..." class="bg-darkcard border border-gray-700 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-primary-500 w-64">
+                        <button onclick="abrirModalCategoria()" class="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2 text-sm transition-colors">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Nueva Categoría
+                        </button>
+                    </div>
+                    <div class="bg-darkcard rounded-2xl border border-white/5 overflow-hidden">
+                        <table class="w-full text-left text-sm text-gray-400">
+                            <thead class="bg-white/5 text-gray-300 uppercase font-semibold">
+                                <tr>
+                                    <th class="px-6 py-4">ID</th>
+                                    <th class="px-6 py-4">Categoría</th>
+                                    <th class="px-6 py-4">Slug</th>
+                                    <th class="px-6 py-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-categorias" class="divide-y divide-white/5">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALES -->
+
+    <!-- Modal Categoría -->
+    <div id="modal-categoria" class="fixed inset-0 z-[110] hidden bg-black/80 backdrop-blur-sm items-center justify-center">
+        <div class="bg-darkcard border border-white/10 rounded-3xl p-6 w-full max-w-md">
+            <h3 id="modal-cat-titulo" class="text-xl font-bold text-white mb-6">Nueva Categoría</h3>
+            <form id="form-categoria" class="space-y-4">
+                <input type="hidden" id="cat-id">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Nombre</label>
+                    <input type="text" id="cat-name" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Slug (URL)</label>
+                    <input type="text" id="cat-slug" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Descripción</label>
+                    <textarea id="cat-desc" rows="2" class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Imagen (Portada)</label>
+                    <input type="file" id="cat-image" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-500/10 file:text-primary-500 hover:file:bg-primary-500/20">
+                </div>
+                <div class="flex gap-3 pt-4 border-t border-white/5">
+                    <button type="button" onclick="cerrarModal('modal-categoria')" class="flex-1 bg-transparent border border-gray-600 text-white py-2 rounded-lg hover:bg-gray-800 transition">Cancelar</button>
+                    <button type="submit" id="btn-save-cat" class="flex-1 bg-primary-500 text-white py-2 rounded-lg hover:bg-primary-600 transition font-bold">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Producto -->
+    <div id="modal-producto" class="fixed inset-0 z-[110] hidden bg-black/80 backdrop-blur-sm items-center justify-center">
+        <div class="bg-darkcard border border-white/10 rounded-3xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <h3 id="modal-prod-titulo" class="text-xl font-bold text-white mb-6">Nuevo Producto</h3>
+            <form id="form-producto" class="space-y-4">
+                <input type="hidden" id="prod-id">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Nombre del Zapato</label>
+                        <input type="text" id="prod-name" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Slug (URL)</label>
+                        <input type="text" id="prod-slug" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Categoría</label>
+                        <select id="prod-category" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                            <!-- Se llena por JS -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Precio Base ($)</label>
+                        <input type="number" step="0.01" id="prod-price" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Descripción</label>
+                    <textarea id="prod-desc" rows="3" class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Precio Comparación (Tachado)</label>
+                        <input type="number" step="0.01" id="prod-compare" class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-4 py-2 text-white outline-none focus:border-primary-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Imagen del Producto (R2)</label>
+                        <input type="file" id="prod-image" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-500/10 file:text-primary-500 hover:file:bg-primary-500/20">
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-4 border border-white/10 rounded-lg bg-[#0A0F1C]">
+                    <label class="flex items-center gap-2 text-white cursor-pointer">
+                        <input type="checkbox" id="prod-is-new" class="rounded bg-darkcard border-gray-600 text-primary-500 focus:ring-primary-500 h-4 w-4">
+                        Es Nuevo Lanzamiento
+                    </label>
+                    <label class="flex items-center gap-2 text-white cursor-pointer">
+                        <input type="checkbox" id="prod-is-bestseller" class="rounded bg-darkcard border-gray-600 text-primary-500 focus:ring-primary-500 h-4 w-4">
+                        Es Más Vendido
+                    </label>
+                </div>
+
+                <div class="flex gap-3 pt-4 border-t border-white/5">
+                    <button type="button" onclick="cerrarModal('modal-producto')" class="flex-1 bg-transparent border border-gray-600 text-white py-2 rounded-lg hover:bg-gray-800 transition">Cancelar</button>
+                    <button type="submit" id="btn-save-prod" class="flex-1 bg-primary-500 text-white py-2 rounded-lg hover:bg-primary-600 transition font-bold">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Inventario (Stock Manual) -->
+    <div id="modal-inventario" class="fixed inset-0 z-[110] hidden bg-black/80 backdrop-blur-sm items-center justify-center">
+        <div class="bg-darkcard border border-white/10 rounded-3xl p-6 w-full max-w-lg">
+            <h3 class="text-xl font-bold text-white mb-1">Gestionar Stock Manual</h3>
+            <p id="inv-prod-name" class="text-sm text-primary-500 mb-6 font-semibold"></p>
+            
+            <input type="hidden" id="inv-color-id">
+            <input type="hidden" id="inv-prod-id">
+            
+            <div class="bg-[#0A0F1C] rounded-xl border border-gray-700 p-4 mb-6">
+                <h4 class="text-white text-sm font-semibold mb-3">Tallas y Stock Actual</h4>
+                <div id="lista-tallas" class="space-y-3 max-h-48 overflow-y-auto pr-2">
+                    <!-- JS inyectará las tallas aquí -->
+                </div>
+            </div>
+
+            <form id="form-nueva-talla" class="flex gap-3 mb-6 items-end">
+                <div class="flex-1">
+                    <label class="block text-xs text-gray-400 mb-1">Nueva Talla (Ej. 9)</label>
+                    <input type="text" id="new-size" required class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-3 py-2 text-white outline-none focus:border-primary-500">
+                </div>
+                <div class="flex-1">
+                    <label class="block text-xs text-gray-400 mb-1">Stock Físico</label>
+                    <input type="number" id="new-stock" required min="0" class="w-full rounded-lg bg-[#0A0F1C] border border-gray-700 px-3 py-2 text-white outline-none focus:border-primary-500">
+                </div>
+                <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-primary-600 transition">Añadir</button>
+            </form>
+
+            <button type="button" onclick="cerrarModal('modal-inventario')" class="w-full bg-transparent border border-gray-600 text-white py-2 rounded-lg hover:bg-gray-800 transition">Cerrar Ventana</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DEL ADMIN -->
+    <script src="js/admin.js"></script>
+</body>
+</html>

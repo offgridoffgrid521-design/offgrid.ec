@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conoce la historia detrás de offgrid.ec. Calzado premium para cada paso de tu viaje.">
+    <title>offgrid.ec - Nosotros</title>
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 400: '#fb923c', 500: '#ff6600', 600: '#ea580c' },
+                        darkbg: '#0A0F1C',
+                        darkcard: '#111827'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .grid-pattern { background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 24px 24px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0F1C; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-500 selection:text-white bg-gray-50 text-gray-900 dark:bg-darkbg dark:text-white transition-colors duration-300">
+
+    
+    <!-- HEADER UNIFICADO -->
+    <header class="sticky top-0 z-50 border-b border-white/5 bg-darkbg/90 backdrop-blur-lg">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                
+                <button type="button" id="mobile-menu-toggle" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden transition">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500 shadow-lg shadow-primary-500/20">
+                        <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                    </div>
+                    <span class="font-display text-2xl font-bold tracking-tight text-white group-hover:text-primary-500 transition-colors">Offgrid</span>
+                </a>
+
+                <nav class="hidden items-center gap-8 lg:flex">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Inicio</a>
+                    <a href="tienda.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Tienda</a>
+                    <a href="tienda.html?categoria=nuevos" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Nuevos Lanzamientos</a>
+                    <a href="nosotros.html" class="text-sm font-medium text-white transition-colors">Nosotros</a>
+                </nav>
+
+                <div class="flex items-center gap-5">
+                    <button class="text-gray-400 hover:text-white transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                    <button id="theme-toggle" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="wishlist-toggle" class="text-gray-400 hover:text-white transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
+                    <button id="cart-toggle" class="relative text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span id="cart-count-badge" class="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary-500 text-[10px] font-bold text-white scale-0 transition-transform">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO NOSOTROS -->
+        <section class="relative py-32 lg:py-48 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1600&fit=crop" alt="Shoe crafting" class="w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 bg-gradient-to-t from-darkbg via-darkbg/80 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 mx-auto max-w-7xl px-4 lg:px-8 text-center">
+                <span class="inline-block rounded-full glass-panel px-4 py-1.5 text-xs font-semibold text-primary-400 mb-6 uppercase tracking-wider">
+                    Nuestra Esencia
+                </span>
+                <h1 class="font-display text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight">
+                    Redefiniendo <br> <span class="text-primary-500">Cada Paso.</span>
+                </h1>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                    Nacimos con una idea simple: crear calzado que no solo acompañe tu ritmo de vida, sino que lo potencie. Diseño, tecnología y pasión en cada detalle.
+                </p>
+            </div>
+        </section>
+
+        <!-- NUESTRA HISTORIA -->
+        <section class="py-20 lg:py-32">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-primary-500/20 rounded-[3rem] blur-2xl -z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&fit=crop" alt="Sneaker Culture" class="rounded-3xl shadow-2xl object-cover aspect-[4/5] w-full">
+                        
+                        <!-- Tarjeta flotante -->
+                        <div class="absolute -bottom-8 -right-8 glass-panel p-6 rounded-2xl hidden md:block max-w-xs shadow-2xl bg-darkcard/90">
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="h-12 w-12 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold text-xl">20</div>
+                                <div>
+                                    <p class="text-white font-bold">Años de</p>
+                                    <p class="text-gray-400 text-sm">Experiencia combinada</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-6">De la idea a la calle.</h2>
+                        <div class="space-y-6 text-gray-400 leading-relaxed text-lg">
+                            <p>
+                                Offgrid comenzó en 2026 en un pequeño taller creativo, formado por un grupo de atletas y diseñadores cansados de tener que elegir entre rendimiento deportivo y estilo urbano.
+                            </p>
+                            <p>
+                                Nos dimos cuenta de que la industria del calzado estaba estancada en viejos paradigmas. Queríamos zapatillas que pudieras usar para romper tu récord personal en la mañana y lucir impecable en una reunión por la tarde.
+                            </p>
+                            <p>
+                                Hoy, somos más que una tienda de zapatillas. Somos una comunidad de personas que valoran el diseño sin comprometer la comodidad. Cada modelo que seleccionamos y diseñamos pasa por rigurosas pruebas de calidad.
+                            </p>
+                        </div>
+                        <div class="mt-10 border-l-4 border-primary-500 pl-6">
+                            <p class="text-xl text-white font-medium italic">"No vendemos zapatos, entregamos la confianza necesaria para que des tu mejor paso todos los días."</p>
+                            <p class="mt-2 text-sm text-primary-400 font-bold uppercase tracking-wider">— El equipo Fundador</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALORES -->
+        <section class="py-24 bg-darkcard border-y border-white/5">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="font-display text-4xl font-bold text-white mb-4">Nuestros Pilares</h2>
+                    <p class="text-gray-400">Lo que nos guía en cada decisión, diseño y costura.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Valor 1 -->
+                    <div class="bg-darkbg p-8 rounded-3xl border border-white/5 hover:border-primary-500/50 transition-colors group">
+                        <div class="h-14 w-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6 group-hover:bg-primary-500 transition-colors">
+                            <svg class="h-7 w-7 text-primary-500 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Calidad Premium</h3>
+                        <p class="text-gray-400 leading-relaxed">Seleccionamos únicamente materiales de primer nivel. Creemos en el calzado construido para durar, resistir e impresionar.</p>
+                    </div>
+
+                    <!-- Valor 2 -->
+                    <div class="bg-darkbg p-8 rounded-3xl border border-white/5 hover:border-primary-500/50 transition-colors group">
+                        <div class="h-14 w-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6 group-hover:bg-primary-500 transition-colors">
+                            <svg class="h-7 w-7 text-primary-500 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Innovación Constante</h3>
+                        <p class="text-gray-400 leading-relaxed">La tecnología avanza y nosotros también. Implementamos espumas reactivas, mallas transpirables y suelas ergonómicas de última generación.</p>
+                    </div>
+
+                    <!-- Valor 3 -->
+                    <div class="bg-darkbg p-8 rounded-3xl border border-white/5 hover:border-primary-500/50 transition-colors group">
+                        <div class="h-14 w-14 rounded-2xl bg-primary-500/10 flex items-center justify-center mb-6 group-hover:bg-primary-500 transition-colors">
+                            <svg class="h-7 w-7 text-primary-500 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Conciencia Global</h3>
+                        <p class="text-gray-400 leading-relaxed">Empacamos de manera consciente, reducimos plásticos de un solo uso y nos asociamos con proveedores que respetan las normas laborales y ecológicas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL (Grid Pattern) -->
+        <section class="bg-primary-500 grid-pattern py-24 text-center px-4 relative">
+            <div class="absolute inset-0 bg-primary-500/20 pointer-events-none"></div>
+            <div class="relative z-10 mx-auto max-w-3xl">
+                <h2 class="font-display text-4xl font-extrabold text-white sm:text-5xl">Sé parte de nuestro viaje</h2>
+                <p class="mt-4 text-lg text-white/90">
+                    Únete a nuestra comunidad y sé el primero en enterarte de nuevos lanzamientos, colaboraciones exclusivas y eventos.
+                </p>
+                
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="tienda.html" class="rounded-full bg-white px-8 py-4 font-bold text-primary-500 hover:bg-gray-100 transition-colors shadow-xl shadow-black/10">
+                        Explorar Colección
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER UNIFICADO -->
+    <footer class="bg-darkbg pt-16 pb-8 border-t border-white/10">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16 border-b border-white/5 pb-10">
+                <div>
+                    <h3 class="font-bold text-white text-lg">Join the Offgrid Club</h3>
+                    <p class="text-gray-400 text-sm mt-1">Get 15% off your first order, plus early access to new drops.</p>
+                </div>
+                <form class="flex w-full md:w-auto gap-2">
+                    <input type="email" placeholder="Enter your email" required class="w-full md:w-64 rounded-lg bg-darkcard border border-white/10 px-4 py-2.5 text-white placeholder-gray-500 outline-none focus:border-primary-500">
+                    <button type="button" class="rounded-lg bg-primary-500 px-6 py-2.5 font-bold text-white hover:bg-primary-600 transition-colors">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="index.html" class="flex items-center gap-2 mb-4">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
+                        <span class="font-display text-xl font-bold text-white">Offgrid</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Premium footwear for every step of your journey. From athletic performance to everyday comfort.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Shop</h4>
+                    <ul class="space-y-3">
+                        <li><a href="tienda.html?categoria=running" class="text-sm text-gray-400 hover:text-white transition-colors">Running</a></li>
+                        <li><a href="tienda.html?categoria=sneakers" class="text-sm text-gray-400 hover:text-white transition-colors">Sneakers</a></li>
+                        <li><a href="tienda.html?categoria=basketball" class="text-sm text-gray-400 hover:text-white transition-colors">Basketball</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Help</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">About</h4>
+                    <ul class="space-y-3">
+                        <li><a href="nosotros.html" class="text-sm text-gray-400 hover:text-white transition-colors">Our Story</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-8 text-sm text-gray-500">
+                <p>&copy; 2026 offgrid.ec All rights reserved.</p>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <span class="bg-darkcard px-2 py-1 rounded text-xs text-white/50 border border-white/10">VISA</span>
+                    <span class="bg-darkcard px-2 py-1 rounded text-xs text-white/50 border border-white/10">MC</span>
+                    <span class="bg-darkcard px-2 py-1 rounded text-xs text-white/50 border border-white/10">AMEX</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALES Y PANELES (BUSCADOR, AUTH Y CARRITO) -->
+    <div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div class="mx-4 w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl dark:bg-gray-900 relative border border-gray-100 dark:border-gray-800">
+            <button id="close-auth" class="absolute top-4 right-4 text-gray-400 hover:text-primary-500 bg-gray-50 dark:bg-gray-800 p-2 rounded-full transition">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="text-center mb-8 mt-2">
+                <h3 class="font-display text-2xl font-bold text-gray-900 dark:text-white">Iniciar Sesión</h3>
+            </div>
+            <form id="auth-form" class="space-y-4">
+                <input type="email" placeholder="Email" required class="w-full rounded-xl bg-[#0A0F1C] border border-gray-700 px-4 py-3 text-white outline-none focus:border-primary-500">
+                <button type="submit" class="w-full rounded-xl bg-primary-500 py-3 font-bold text-white hover:bg-primary-600 transition-colors">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="search-modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-md items-start justify-center pt-24 transition-all">
+        <div class="w-full max-w-3xl bg-darkcard rounded-3xl p-4 flex items-center gap-4 border border-white/10 mx-4 shadow-2xl transform -translate-y-10 transition-transform duration-300" id="search-content">
+            <svg class="h-6 w-6 text-gray-400 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input type="text" id="search-input" placeholder="Buscar zapatillas..." class="flex-1 bg-transparent border-none text-white text-lg focus:outline-none focus:ring-0 px-4">
+            <button id="close-search" class="text-gray-400 hover:text-primary-500 p-2 bg-white/5 rounded-xl transition-colors"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+    </div>
+
+    <div id="cart-drawer" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" id="close-cart-overlay"></div>
+        <div class="absolute inset-y-0 right-0 w-full max-w-md bg-darkbg border-l border-white/10 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full" id="cart-content">
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <h2 class="font-display text-xl font-bold text-white flex items-center gap-2">Tu Bolsa</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-primary-500 bg-white/5 p-2 rounded-xl transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6" id="cart-items-container"></div>
+            <div class="p-6 border-t border-white/10 bg-darkcard">
+                <div class="flex justify-between text-lg font-bold text-white mb-4">
+                    <span>Subtotal</span><span id="cart-total-price">$0.00</span>
+                </div>
+                <a href="checkout.html" id="btn-go-checkout" class="flex w-full items-center justify-center rounded-xl bg-primary-500 px-4 py-4 font-bold text-white hover:bg-primary-600 transition-colors shadow-lg shadow-primary-500/20">Procesar Pago</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

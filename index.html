@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calzado premium para cada paso de tu viaje.">
+    <title>offgrid.ec - Step Into Your Best</title>
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 400: '#fb923c', 500: '#ff6600', 600: '#ea580c' },
+                        darkbg: '#0A0F1C',
+                        darkcard: '#111827'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .grid-pattern { background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 24px 24px; }
+        .hero-red-shape { background: linear-gradient(135deg, #e11d48, #9f1239); transform: skewY(-8deg) rotate(4deg); border-radius: 2rem; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0F1C; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-500 selection:text-white bg-gray-50 text-gray-900 dark:bg-darkbg dark:text-white transition-colors duration-300">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-white/5 bg-darkbg/90 backdrop-blur-lg">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                
+                <button type="button" id="mobile-menu-toggle" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden transition">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500 shadow-lg shadow-primary-500/20">
+                        <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span class="font-display text-2xl font-bold tracking-tight text-white group-hover:text-primary-500 transition-colors">offgrid</span>
+                </a>
+
+                <nav class="hidden items-center gap-8 lg:flex">
+                    <a href="tienda.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Tienda</a>
+                    <a href="#categorias" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Categorías</a>
+                    <a href="tienda.html?categoria=nuevos" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Nuevos Lanzamientos</a>
+                    <a href="tienda.html?categoria=ofertas" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Ofertas</a>
+                    <a href="nosotros.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Nosotros</a>
+                </nav>
+
+                <div class="flex items-center gap-5">
+                    <button class="text-gray-400 hover:text-white transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                    <button id="theme-toggle" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    <button id="auth-toggle" class="text-gray-400 hover:text-white transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
+                    <button id="cart-toggle" class="relative text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span id="cart-count-badge" class="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary-500 text-[10px] font-bold text-white scale-0 transition-transform">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative min-h-[600px] lg:min-h-[85vh] flex items-center overflow-hidden pt-10 pb-20">
+            <div class="absolute -left-40 top-20 h-[500px] w-[500px] rounded-full bg-primary-500/10 blur-[120px] pointer-events-none"></div>
+            <div class="absolute right-0 bottom-0 h-[600px] w-[600px] rounded-full bg-red-600/10 blur-[150px] pointer-events-none"></div>
+            
+            <div class="mx-auto max-w-7xl px-4 lg:px-8 w-full relative z-10">
+                <div class="grid items-center gap-16 lg:grid-cols-2">
+                    <div class="text-left">
+                        <span class="inline-flex items-center gap-2 rounded-full glass-panel px-4 py-1.5 text-xs font-semibold text-primary-400 mb-6">
+                            <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"></path></svg>
+                            New Collection
+                        </span>
+                        <h1 class="font-display text-6xl font-extrabold tracking-tight text-white sm:text-7xl lg:text-[5.5rem] leading-[1.1]">
+                            Step Into <br>
+                            <span class="text-primary-500">Your Best</span>
+                        </h1>
+                        <p class="mt-6 max-w-lg text-lg text-gray-400 leading-relaxed">
+                            Premium footwear for every step of your journey. From athletic performance to everyday comfort.
+                        </p>
+                        <div class="mt-10 flex flex-wrap items-center gap-4">
+                            <a href="tienda.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-500 px-8 py-3.5 font-semibold text-white hover:bg-primary-600 transition-colors">
+                                Shop Now &rarr;
+                            </a>
+                            <a href="#categorias" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-transparent px-8 py-3.5 font-semibold text-white hover:bg-white/10 transition-colors">
+                                Browse Categories
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative hidden lg:block h-[500px]">
+                        <div class="hero-red-shape absolute inset-0 right-10 left-10 shadow-2xl shadow-red-900/50"></div>
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&fit=crop&q=80" alt="Nike Shoe" class="absolute top-1/2 left-1/2 w-[120%] max-w-[650px] -translate-x-1/2 -translate-y-1/2 -rotate-12 drop-shadow-2xl z-20 hover:scale-105 transition-transform duration-700 object-cover rounded-[40px]" style="filter: drop-shadow(0 25px 25px rgba(0,0,0,0.5));">
+
+                        <div class="glass-panel absolute left-0 top-1/3 z-30 flex items-center gap-3 rounded-2xl p-4 shadow-xl -translate-x-8 animate-[bounce_4s_infinite]">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 text-green-400">✓</div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Free Shipping</p>
+                                <p class="text-xs text-gray-300">Orders over $100</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel absolute right-0 bottom-1/4 z-30 flex items-center gap-3 rounded-2xl p-4 shadow-xl translate-x-8 animate-[bounce_5s_infinite_reverse]">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-500/20 text-primary-400">↻</div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Easy Returns</p>
+                                <p class="text-xs text-gray-300">60-day guarantee</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section id="categorias" class="py-20">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
+                <div class="flex items-end justify-between mb-10">
+                    <div>
+                        <h2 class="font-display text-4xl font-bold text-white">Shop by Category</h2>
+                        <p class="mt-2 text-gray-400">Find the perfect pair for every occasion</p>
+                    </div>
+                    <a href="tienda.html" class="text-primary-500 hover:text-primary-400 font-semibold text-sm transition-colors">View All ></a>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="tienda.html?categoria=running" class="group relative overflow-hidden rounded-3xl bg-darkcard aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=450&fit=crop" class="h-full w-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8">
+                            <span class="inline-block rounded-full glass-panel px-3 py-1 text-xs font-medium text-white mb-3">Explore</span>
+                            <h3 class="font-display text-3xl font-bold text-white">Running</h3>
+                            <p class="mt-1 text-sm text-gray-300">Performance shoes built for speed and endurance</p>
+                        </div>
+                    </a>
+                    <a href="tienda.html?categoria=sneakers" class="group relative overflow-hidden rounded-3xl bg-darkcard aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=450&fit=crop" class="h-full w-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8">
+                            <span class="inline-block rounded-full glass-panel px-3 py-1 text-xs font-medium text-white mb-3">Explore</span>
+                            <h3 class="font-display text-3xl font-bold text-white">Sneakers</h3>
+                            <p class="mt-1 text-sm text-gray-300">Classic and contemporary streetwear styles</p>
+                        </div>
+                    </a>
+                    <a href="tienda.html?categoria=basketball" class="group relative overflow-hidden rounded-3xl bg-darkcard aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=600&h=450&fit=crop" class="h-full w-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8">
+                            <span class="inline-block rounded-full glass-panel px-3 py-1 text-xs font-medium text-white mb-3">Explore</span>
+                            <h3 class="font-display text-3xl font-bold text-white">Basketball</h3>
+                            <p class="mt-1 text-sm text-gray-300">Court-ready shoes with superior ankle support</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFITS BAR -->
+        <section class="border-y border-white/10 bg-darkbg py-10">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="flex gap-4">
+                        <div class="text-primary-500"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 17a2 2 0 100-4 2 2 0 000 4zM19 17a2 2 0 100-4 2 2 0 000 4zM10.5 10H17l2 4m0 0h2v4h-2m0-4H5.5a2 2 0 00-2 2v2h2m0 0H19M3 10h4.5l1-4h8l1 4"></path></svg></div>
+                        <div>
+                            <h4 class="font-bold text-white">Free Shipping</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">Free standard shipping on all orders over $100.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-primary-500"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
+                        <div>
+                            <h4 class="font-bold text-white">60-Day Returns</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">Return unworn items within 60 days, no questions asked.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-primary-500"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg></div>
+                        <div>
+                            <h4 class="font-bold text-white">Size Guarantee</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">Not the right fit? Exchange for a different size at no extra cost.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-primary-500"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                        <div>
+                            <h4 class="font-bold text-white">Secure Checkout</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">Your payment information is encrypted and secure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW ARRIVALS -->
+        <section id="catalogo" class="py-20">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
+                <div class="flex items-end justify-between mb-10">
+                    <div>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-green-500 mb-2">
+                            <span class="h-2 w-2 rounded-full bg-green-500"></span> Just Dropped
+                        </span>
+                        <h2 class="font-display text-4xl font-bold text-white">New Arrivals</h2>
+                        <p class="mt-2 text-gray-400">Fresh styles just landed — be the first to rock them</p>
+                    </div>
+                    <a href="tienda.html?categoria=nuevos" class="text-primary-500 hover:text-primary-400 font-semibold text-sm transition-colors">Shop New Arrivals ></a>
+                </div>
+                
+                <!-- app.js inyectará dinámicamente los productos aquí -->
+                <div id="productos-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="flex flex-col gap-4 animate-pulse"><div class="aspect-square bg-darkcard rounded-3xl w-full"></div><div class="h-4 bg-darkcard rounded w-1/3"></div><div class="h-6 bg-darkcard rounded w-2/3"></div></div>
+                    <div class="flex flex-col gap-4 animate-pulse"><div class="aspect-square bg-darkcard rounded-3xl w-full"></div><div class="h-4 bg-darkcard rounded w-1/3"></div><div class="h-6 bg-darkcard rounded w-2/3"></div></div>
+                    <div class="flex flex-col gap-4 animate-pulse hidden lg:flex"><div class="aspect-square bg-darkcard rounded-3xl w-full"></div><div class="h-4 bg-darkcard rounded w-1/3"></div><div class="h-6 bg-darkcard rounded w-2/3"></div></div>
+                    <div class="flex flex-col gap-4 animate-pulse hidden lg:flex"><div class="aspect-square bg-darkcard rounded-3xl w-full"></div><div class="h-4 bg-darkcard rounded w-1/3"></div><div class="h-6 bg-darkcard rounded w-2/3"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="bg-primary-500 grid-pattern py-24 text-center px-4 relative">
+            <div class="absolute inset-0 bg-primary-500/20 pointer-events-none"></div>
+            <div class="relative z-10 mx-auto max-w-3xl">
+                <h2 class="font-display text-4xl font-extrabold text-white sm:text-5xl">Ready to Step Up Your Game?</h2>
+                <p class="mt-4 text-lg text-white/90">
+                    Join the Stride community and get 15% off your first order.
+                </p>
+                <form class="mt-8 flex flex-col sm:flex-row justify-center gap-3 max-w-lg mx-auto">
+                    <input type="email" placeholder="Enter your email" required class="flex-1 rounded-full bg-white/20 border border-white/30 px-6 py-4 text-white placeholder-white/70 outline-none focus:bg-white/30 backdrop-blur-sm transition-all">
+                    <button type="button" class="rounded-full bg-white px-8 py-4 font-bold text-primary-500 hover:bg-gray-100 transition-colors shadow-xl shadow-black/10">
+                        Get 15% Off
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkbg pt-16 pb-8 border-t border-white/10">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8 text-center text-sm text-gray-500">
+            <p>&copy; 2026 offgrid.ec All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- MODALES Y PANELES (BUSCADOR, AUTH Y CARRITO) -->
+    <div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div class="mx-4 w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl dark:bg-gray-900 relative border border-gray-100 dark:border-gray-800">
+            <button id="close-auth" class="absolute top-4 right-4 text-gray-400 hover:text-primary-500 bg-gray-50 dark:bg-gray-800 p-2 rounded-full transition">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="text-center mb-8 mt-2">
+                <h3 class="font-display text-2xl font-bold text-gray-900 dark:text-white">Iniciar Sesión</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="search-modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-md items-start justify-center pt-24 transition-all">
+        <div class="w-full max-w-3xl bg-darkcard rounded-3xl p-4 flex items-center gap-4 border border-white/10 mx-4 shadow-2xl transform -translate-y-10 transition-transform duration-300" id="search-content">
+            <svg class="h-6 w-6 text-gray-400 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input type="text" id="search-input" placeholder="Buscar zapatillas..." class="flex-1 bg-transparent border-none text-white text-lg focus:outline-none focus:ring-0 placeholder-gray-500">
+            <button id="close-search" class="text-gray-400 hover:text-primary-500 p-2 bg-white/5 rounded-xl transition-colors"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+    </div>
+
+    <div id="cart-drawer" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" id="close-cart-overlay"></div>
+        <div class="absolute inset-y-0 right-0 w-full max-w-md bg-darkbg border-l border-white/10 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full" id="cart-content">
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <h2 class="font-display text-xl font-bold text-white flex items-center gap-2">Tu Bolsa</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-primary-500 bg-white/5 p-2 rounded-xl transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6" id="cart-items-container"></div>
+            <div class="p-6 border-t border-white/10 bg-darkcard">
+                <div class="flex justify-between text-lg font-bold text-white mb-4">
+                    <span>Subtotal</span><span id="cart-total-price">$0.00</span>
+                </div>
+                <a href="checkout.html" id="btn-go-checkout" class="flex w-full items-center justify-center rounded-xl bg-primary-500 px-4 py-4 font-bold text-white hover:bg-primary-600 transition-colors shadow-lg shadow-primary-500/20">Procesar Pago</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

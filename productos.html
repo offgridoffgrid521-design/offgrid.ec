@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>offgrid.ec - Detalle de Producto</title>
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 400: '#fb923c', 500: '#ff6600', 600: '#ea580c' },
+                        darkbg: '#0A0F1C',
+                        darkcard: '#111827'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .size-radio:checked + div {
+            border-color: #ff6600;
+            background-color: rgba(255, 102, 0, 0.1);
+            color: #ff6600;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0F1C; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-500 selection:text-white bg-gray-50 text-gray-900 dark:bg-darkbg dark:text-white transition-colors duration-300">
+
+    <header class="sticky top-0 z-50 border-b border-white/5 bg-darkbg/90 backdrop-blur-lg">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                <button type="button" id="mobile-menu-toggle" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden transition">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500 shadow-lg shadow-primary-500/20">
+                        <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                    </div>
+                    <span class="font-display text-2xl font-bold tracking-tight text-white group-hover:text-primary-500 transition-colors">Offgrid</span>
+                </a>
+                <nav class="hidden items-center gap-8 lg:flex">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Inicio</a>
+                    <a href="tienda.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Tienda</a>
+                    <a href="tienda.html?categoria=nuevos" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Nuevos Lanzamientos</a>
+                    <a href="tienda.html?categoria=ofertas" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Ofertas</a>
+                    <a href="nosotros.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Nosotros</a>
+                </nav>
+                <div class="flex items-center gap-5">
+                    <button class="text-gray-400 hover:text-white transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                    <button id="theme-toggle" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    <button id="wishlist-toggle" class="text-gray-400 hover:text-white transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
+                    <button id="cart-toggle" class="relative text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span id="cart-count-badge" class="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary-500 text-[10px] font-bold text-white scale-0 transition-transform">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12 lg:py-16">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div id="producto-skeleton" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 animate-pulse">
+                <div>
+                    <div class="aspect-square bg-darkcard rounded-3xl w-full"></div>
+                </div>
+                <div class="space-y-6">
+                    <div class="h-12 bg-darkcard rounded w-3/4"></div>
+                    <div class="h-24 bg-darkcard rounded w-full mt-6"></div>
+                </div>
+            </div>
+
+            <div id="producto-container" class="hidden opacity-0 transition-opacity duration-500">
+                <nav class="flex text-sm text-gray-500 mb-8">
+                    <a href="index.html" class="hover:text-primary-500">Inicio</a><span class="mx-2">/</span>
+                    <a href="tienda.html" class="hover:text-primary-500" id="prod-categoria-link">Categoría</a><span class="mx-2">/</span>
+                    <span class="text-white" id="prod-nombre-bread">Cargando...</span>
+                </nav>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                    <div class="flex flex-col gap-4">
+                        <div class="relative overflow-hidden rounded-3xl bg-darkcard aspect-[4/5] sm:aspect-square flex items-center justify-center">
+                            <span id="prod-badge" class="absolute left-6 top-6 rounded bg-green-500 px-3 py-1.5 text-[11px] font-bold text-white z-10 hidden">NUEVO</span>
+                            <img id="prod-imagen" src="" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <span id="prod-categoria" class="text-primary-500 font-bold tracking-wider text-sm uppercase mb-2">Categoría</span>
+                        <h1 id="prod-nombre" class="font-display text-4xl lg:text-5xl font-extrabold text-white mb-4">Cargando Producto...</h1>
+                        
+                        <div class="flex items-end gap-3 mb-8">
+                            <span id="prod-precio" class="font-display text-4xl font-extrabold text-white">$0.00</span>
+                            <span id="prod-precio-comparacion" class="text-xl text-gray-500 line-through mb-1 hidden"></span>
+                        </div>
+
+                        <p id="prod-descripcion" class="text-gray-300 leading-relaxed mb-8"></p>
+
+                        <!-- Selector Dinámico de Tallas (Se inyecta por app.js) -->
+                        <div class="mb-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-white">Select Size (US)</h3>
+                            </div>
+                            <div id="contenedor-tallas" class="grid grid-cols-4 sm:grid-cols-5 gap-3">
+                                <p class="text-gray-500 col-span-full">Cargando inventario...</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <!-- Botón Estricto de Añadir a la Bolsa -->
+                            <button id="btn-add-to-cart-dynamic" data-add-to-cart="true" class="flex-1 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-xl shadow-xl shadow-primary-500/20 transition-colors flex items-center justify-center gap-2">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> 
+                                Añadir a la Bolsa
+                            </button>
+                            <button class="flex h-[56px] w-[56px] items-center justify-center rounded-xl bg-darkcard border border-white/10 text-gray-400 hover:text-red-500 hover:border-red-500 transition-colors" data-add-to-wishlist="true">
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-darkbg pt-16 pb-8 border-t border-white/10 mt-20">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8 text-center text-sm text-gray-500">
+            <p>&copy; 2026 offgrid.ec All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- MODALES Y PANELES (BUSCADOR Y CARRITO) -->
+    <div id="search-modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-md items-start justify-center pt-24 transition-all">
+        <div class="w-full max-w-3xl bg-darkcard rounded-3xl p-4 flex items-center gap-4 border border-white/10 mx-4 shadow-2xl transform -translate-y-10 transition-transform duration-300" id="search-content">
+            <input type="text" id="search-input" placeholder="Buscar zapatillas..." class="flex-1 bg-transparent border-none text-white text-lg focus:outline-none focus:ring-0 px-4">
+            <button id="close-search" class="text-gray-400 hover:text-primary-500 p-2 bg-white/5 rounded-xl transition-colors"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+    </div>
+
+    <div id="cart-drawer" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" id="close-cart-overlay"></div>
+        <div class="absolute inset-y-0 right-0 w-full max-w-md bg-darkbg border-l border-white/10 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full" id="cart-content">
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <h2 class="font-display text-xl font-bold text-white">Tu Bolsa</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-primary-500 bg-white/5 p-2 rounded-xl transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6" id="cart-items-container"></div>
+            <div class="p-6 border-t border-white/10 bg-darkcard">
+                <div class="flex justify-between text-lg font-bold text-white mb-4">
+                    <span>Subtotal</span><span id="cart-total-price">$0.00</span>
+                </div>
+                <a href="checkout.html" id="btn-go-checkout" class="flex w-full items-center justify-center rounded-xl bg-primary-500 px-4 py-4 font-bold text-white hover:bg-primary-600 transition-colors shadow-lg shadow-primary-500/20">Procesar Pago</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
