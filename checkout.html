@@ -277,7 +277,7 @@
                 };
 
                 try {
-                    const respuesta = await fetch('http://127.0.0.1:5000/api/checkout', {
+                    const respuesta = await fetch('https://offgrid-ec-back.onrender.com/api/checkout', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -292,7 +292,7 @@
                         
                         // 2. CONSTRUIR EL MENSAJE PARA WHATSAPP
                         // Cambia este número 
-                        const numeroWhatsApp = "593998725131"; 
+                        const numeroWhatsApp = "593990262404"; 
                         
                         let mensaje = `¡Hola Offgrid! ⚡\nQuiero confirmar mi pedido (*Orden #${data.orden_id}*)\n\n`;
                         
