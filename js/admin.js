@@ -1,8 +1,14 @@
+
 const API_URL = 'https://offgrid-ec-back.onrender.com/api';
 let globalCategorias = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     verificarAutenticacion();
+    
+    // Activar menú hamburguesa en versión móvil
+    document.getElementById('admin-menu-toggle')?.addEventListener('click', () => {
+        document.getElementById('admin-sidebar').classList.toggle('-translate-x-full');
+    });
     
     // Auto-generadores de Slugs
     document.getElementById('cat-name')?.addEventListener('input', (e) => {
@@ -92,6 +98,11 @@ window.cambiarVista = (vista) => {
     document.getElementById('vista-dashboard').classList.toggle('hidden', vista !== 'dashboard');
     document.getElementById('vista-productos').classList.toggle('hidden', vista !== 'productos');
     document.getElementById('vista-categorias').classList.toggle('hidden', vista !== 'categorias');
+
+    // Cierra el menú lateral automáticamente en móviles al seleccionar una opción
+    if (window.innerWidth < 1024) {
+        document.getElementById('admin-sidebar')?.classList.add('-translate-x-full');
+    }
 };
 
 window.mostrarToast = (mensaje, tipo) => {
@@ -163,11 +174,11 @@ window.cargarDashboard = async (rango) => {
                 data.ultimos_pedidos.forEach(pedido => {
                     tbody.innerHTML += `
                         <tr class="hover:bg-white/5 transition-colors">
-                            <td class="px-6 py-4 font-bold text-white">#${pedido.id}</td>
-                            <td class="px-6 py-4">${pedido.customer_name}</td>
-                            <td class="px-6 py-4 text-xs">${pedido.created_at}</td>
-                            <td class="px-6 py-4 font-semibold text-primary-500">$${parseFloat(pedido.total_amount).toFixed(2)}</td>
-                            <td class="px-6 py-4 text-right">
+                            <td class="px-6 py-4 font-bold text-white whitespace-nowrap">#${pedido.id}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">${pedido.customer_name}</td>
+                            <td class="px-6 py-4 text-xs whitespace-nowrap">${pedido.created_at}</td>
+                            <td class="px-6 py-4 font-semibold text-primary-500 whitespace-nowrap">$${parseFloat(pedido.total_amount).toFixed(2)}</td>
+                            <td class="px-6 py-4 text-right whitespace-nowrap">
                                 <span class="bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded text-xs uppercase">${pedido.order_status}</span>
                             </td>
                         </tr>
@@ -194,13 +205,13 @@ async function cargarCategorias() {
             const safeDesc = (cat.description || '').replace(/'/g, "\\'");
             tbody.innerHTML += `
                 <tr class="hover:bg-white/5 transition-colors">
-                    <td class="px-6 py-4">#${cat.id}</td>
-                    <td class="px-6 py-4 font-bold text-white flex items-center gap-3">
+                    <td class="px-6 py-4 whitespace-nowrap">#${cat.id}</td>
+                    <td class="px-6 py-4 font-bold text-white flex items-center gap-3 whitespace-nowrap">
                         <img src="${cat.image_url || 'https://via.placeholder.com/40'}" class="w-10 h-10 rounded-lg bg-darkbg object-cover">
                         ${cat.name}
                     </td>
-                    <td class="px-6 py-4">${cat.slug}</td>
-                    <td class="px-6 py-4 text-right">
+                    <td class="px-6 py-4 whitespace-nowrap">${cat.slug}</td>
+                    <td class="px-6 py-4 text-right whitespace-nowrap">
                         <button onclick="abrirModalCategoria('${cat.id}', '${cat.name}', '${cat.slug}', '${safeDesc}')" class="text-blue-400 hover:text-blue-300 mr-3">Editar</button>
                         <button onclick="eliminarCategoria('${cat.id}')" class="text-red-500 hover:text-red-400">Borrar</button>
                     </td>
@@ -273,17 +284,17 @@ async function cargarProductos() {
             
             tbody.innerHTML += `
                 <tr class="hover:bg-white/5 transition-colors">
-                    <td class="px-6 py-4 font-bold text-white flex items-center gap-3">
+                    <td class="px-6 py-4 font-bold text-white flex items-center gap-3 whitespace-nowrap">
                         <img src="${prod.image_url || 'https://via.placeholder.com/40'}" class="w-10 h-10 rounded-lg bg-darkbg object-cover">
                         ${prod.name}
                     </td>
-                    <td class="px-6 py-4">${prod.categoria_nombre}</td>
-                    <td class="px-6 py-4 font-semibold text-white">$${parseFloat(prod.base_price).toFixed(2)}</td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 whitespace-nowrap">${prod.categoria_nombre}</td>
+                    <td class="px-6 py-4 font-semibold text-white whitespace-nowrap">$${parseFloat(prod.base_price).toFixed(2)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
                         ${prod.is_new ? '<span class="bg-green-500/20 text-green-500 px-2 py-1 rounded text-xs mr-1">Nuevo</span>' : ''}
                         ${prod.is_bestseller ? '<span class="bg-primary-500/20 text-primary-500 px-2 py-1 rounded text-xs">Top</span>' : ''}
                     </td>
-                    <td class="px-6 py-4 text-right">
+                    <td class="px-6 py-4 text-right whitespace-nowrap">
                         <button onclick="abrirInventario('${prod.id}', '${safeName}')" class="text-green-500 hover:text-green-400 mr-3 font-bold">📦 Stock</button>
                         <button onclick="abrirModalProducto('${prod.id}', '${safeName}', '${prod.slug}', '${prod.category_id || ''}', '${prod.base_price}', '${prod.compare_at_price || ''}', '${prod.is_new}', '${prod.is_bestseller}', '${safeDesc}')" class="text-blue-400 hover:text-blue-300 mr-3">Editar</button>
                         <button onclick="eliminarProducto('${prod.id}')" class="text-red-500 hover:text-red-400">Borrar</button>
